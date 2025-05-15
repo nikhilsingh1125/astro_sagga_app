@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   final AstroController controller = Get.put(AstroController());
   final BottomNavController navController = Get.put(BottomNavController());
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         elevation: 1,
         leading: Padding(
-          padding: EdgeInsets.only(left: 14.h),
+          padding: EdgeInsets.only(left: 20.h),
           child: SvgPicture.asset(
             IconsAsset.logo,
             height: 20.h,
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             width: 15.h,
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: 5.h),
+            margin: EdgeInsets.symmetric(vertical: 7.h),
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 border: Border.all(color: AppColor.darkGrey),

@@ -1,6 +1,7 @@
 import 'package:astro_sagga/core/res/app_colors.dart';
 import 'package:astro_sagga/core/res/icons_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -9,15 +10,21 @@ import '../../core/res/ui_helper.dart';
 import '../controllers/details_page_controllers/details_page_controller.dart';
 import '../widgets/custom_rich_text_widget.dart';
 
-class DetailsPage extends StatelessWidget {
-  final DetailsController controller = Get.put(DetailsController());
+class DetailsPage extends StatefulWidget {
 
   DetailsPage({super.key});
 
   @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  final DetailsController controller = Get.put(DetailsController());
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.h),
         child: AppBar(
@@ -29,7 +36,6 @@ class DetailsPage extends StatelessWidget {
                   style: customTextStyle(
                       fontSize: 16,
                       color: AppColor.white,
-                      fontFamily: "Poppins",
                       fontWeight: FontWeight.w600)),
               SizedBox(width: 10.w),
               Container(
@@ -184,17 +190,25 @@ class DetailsPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Images",
-            style: customTextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: AppColor.black)),
+        Text(
+          "Images",
+          style: customTextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: AppColor.black,
+          ),
+        ),
         SizedBox(height: 10.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(3, (_) {
-            return SvgPicture.asset(IconsAsset.images_items);
-          }),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(3, (_) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.h),
+                child: SvgPicture.asset(IconsAsset.images_items),
+              );
+            }),
+          ),
         ),
       ],
     );
@@ -355,11 +369,10 @@ class DetailsPage extends StatelessWidget {
                 color: AppColor.green,
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Column(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(gift['image']!, color: AppColor.white),
-                  SizedBox(height: 4.h),
                   Text(
                     gift['min']!,
                     style: customTextStyle(fontSize: 14, color: Colors.white),
